@@ -34,9 +34,6 @@ const userSchema = new mongoose.Schema({
         enum:["user","admin"]
         
     }
-    // todolist: [{
-    //     type: Schema.Types.ObjectId, ref: "Post"
-    // }]
 },
 {timestamps: true});
 

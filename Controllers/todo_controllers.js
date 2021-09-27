@@ -44,10 +44,10 @@ exports.getAll_todo = async (req, res) => {
             }
             return isValid;
         })
-        // only allow admins to access other user records
-        if (id !== currentUser.sub && currentUser.role !== Role.Admin) {
-            return res.status(401).json({ message: 'Unauthorized' });
-        }
+        // // only allow admins to access other user records
+        // if (id !== currentUser.sub && currentUser.role !== Role.Admin) {
+        //     return res.status(401).json({ message: 'Unauthorized' });
+        // }
         
         res.send(filteredCategory);
         // res.status(200).json(data);

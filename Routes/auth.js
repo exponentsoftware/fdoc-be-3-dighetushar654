@@ -7,6 +7,7 @@ const dotenv = require("dotenv");
 dotenv.config();                        // to use .env variables
 
 const User = require("../Models/userModel");
+const Todo = require("../Models/todoModel");
 
 // Private Route, logged In User Can Access it.
 router.get("/", auth, async(req, res) => {
@@ -53,6 +54,25 @@ router.post("/",[
             res.json({token})
         })
 
+    } catch (err) {
+        res.status(500).json(err);
+        console.log(err);
+    }
+})
+
+router.get("/getTodoList/:id", async (req,res) => {
+    try {
+        let id = req.params.id;
+        let user = await User.findById({ _id: id });
+        // console.log(user.role)
+        if(user.role == "admin"){
+            let all_todo = await Todo.find()
+            res.status(200).send({all_todo})
+        }
+        if(user.role == "user"){
+            let todo = await Todo.findOne({ user: id });
+            res.status(200).json({todo})
+        }
     } catch (err) {
         res.status(500).json(err);
         console.log(err);
